@@ -1,0 +1,117 @@
+<mat-toolbar>
+    <mat-icon>account_balance</mat-icon>
+    <a routerLink="/" class="link-style">Agência Bancária</a>
+</mat-toolbar>
+
+<div class="toolbar-spacing"></div>
+<mat-tab-group>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>list</mat-icon>
+            Todos
+        </ng-template>
+        <mat-card>
+            <table mat-table [dataSource]="clientes">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Ordem </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nome">
+                    <th mat-header-cell *matHeaderCellDef> Nome </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.nome}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="idade">
+                    <th mat-header-cell *matHeaderCellDef> Idade </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.idade}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> E-mail </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="numeroConta">
+                    <th mat-header-cell *matHeaderCellDef> Número da Conta </th>
+                    <td mat-cell *matCellDef="let cliente"> {{cliente.numeroConta}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="trasacao">
+                    <th mat-header-cell *matHeaderCellDef> Transação </th>
+                    <td mat-cell *matCellDef="let cliente"> 
+                        <button mat-icon-button color="primary" (click)="criarTransacao(cliente)">
+                            <mat-icon>monetization_on</mat-icon>
+                        </button>
+                    </td>                    
+                </ng-container>            
+
+                <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+                <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
+            </table>
+        </mat-card>
+    </mat-tab>       
+    
+   
+    <mat-tab>
+        <div class="container">
+        <ng-template mat-tab-label>
+            <mat-icon>person</mat-icon>
+            Novo Cliente
+        </ng-template>
+        <mat-card>            
+            <mat-card-title>Novo Cliente</mat-card-title>
+            <form [formGroup]="formulario" (ngSubmit)="submit()">
+
+                <mat-form-field class="full-width">
+                    <mat-label>Nome: </mat-label>
+                    <input formControlName="nome" matInput placeholder="Digite seu nome" />
+                    <div *ngIf="this.formulario.controls['nome'].errors && !formulario.controls['nome'].pristine">
+                        <div *ngIf="formulario.controls['nome'].errors?.['required']">
+                            Campo nome é obrigatório.
+                        </div>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Idade: </mat-label>
+                    <input formControlName="idade" matInput placeholder="Digite sua idade" />
+                    <div *ngIf="this.formulario.controls['idade'].errors && !formulario.controls['idade'].pristine">
+                        <div *ngIf="formulario.controls['idade'].errors?.['required']">
+                            Campo idade é obrigatório.
+                        </div>
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>E-mail: </mat-label>
+                    <input formControlName="email" matInput placeholder="Digite seu e-mail" />                   
+                    <div *ngIf="formulario.controls['email'].errors && !formulario.controls['email'].pristine">
+                        <div *ngIf="formulario.controls['email'].errors?.['required']">
+                            Campo e-mail é obrigatório.
+                        </div>
+                        <div *ngIf="formulario.controls['email'].errors?.['email']">
+                            E-mail inválido.
+                        </div>                        
+                    </div>               
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Número da Conta: </mat-label>
+                    <input formControlName="numeroConta" matInput placeholder="Digite o número da conta" />
+                    <div *ngIf="this.formulario.controls['numeroConta'].errors && !formulario.controls['numeroConta'].pristine">
+                        <div *ngIf="formulario.controls['numeroConta'].errors?.['required']">
+                            Campo obrigatório.
+                        </div>
+                    </div>
+                </mat-form-field>
+                <button mat-raised-button color="primary">Adiconar</button>
+
+            </form>
+       
+        </mat-card>
+    </div>
+    </mat-tab>
+
+
+</mat-tab-group>
