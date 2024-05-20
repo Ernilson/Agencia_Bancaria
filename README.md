@@ -36,7 +36,7 @@ GET /saldo/{clienteId}
 - Maven
 - Apache Tomcat
 - Banco de Dados PostgreSQL
-- JUnit 5 e Mockito
+- JUnit 5
 - Docker
 
 #### APP
